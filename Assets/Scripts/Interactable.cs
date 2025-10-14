@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public Color tintColor = new Color(0, 1, 1, 0.5f);
+    public Color tintColor = new Color(0, 1, 1, 0.75f);
 
     public abstract void Interact();
     public virtual void StartHover()

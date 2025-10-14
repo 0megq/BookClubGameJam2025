@@ -17,10 +17,12 @@ public class Door : Interactable
         {
             transform.Rotate(-Vector3.up * 80);
             text.transform.Rotate(Vector3.up * 80);
+            text.text = "Open";
         }
         else {
             transform.Rotate(Vector3.up * 80);
             text.transform.Rotate(-Vector3.up * 80);
+            text.text = "Close";
         }
         open = !open;
     }

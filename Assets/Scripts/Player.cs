@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
         } else if (hoveredObject != null)
         {
             hoveredObject.EndHover();
+            hoveredObject = null;
         }
     }
 

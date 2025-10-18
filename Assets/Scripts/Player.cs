@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public Material outlineMaterial;
+    [SerializeField] float interactDistance = 5;
+    public Transform start;
     Camera cam;
     Vector2 mousePos;
     Interactable hoveredObject;
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        transform.position = start.position;
         cam = GetComponent<Camera>();
     }
 
@@ -21,19 +23,17 @@ public class Player : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(mousePos);
         // send raycast every frame to show outline
         RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction, out hit))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, interactDistance))
         {
             Interactable newObject = hit.transform.GetComponent<Interactable>();
 
-            if (hoveredObject != null && hoveredObject != newObject) // previously hovered was deselected
+            if (hoveredObject != newObject) // previously hovered was deselected
             {
-                hoveredObject.EndHover();
-            }
-
-            hoveredObject = newObject;
-            if (hoveredObject)
-            {
-                hoveredObject.StartHover();
+                if (hoveredObject != null)
+                    hoveredObject.EndHover();
+                hoveredObject = newObject;
+                if (hoveredObject != null)
+                    hoveredObject.StartHover();
             }
         } else if (hoveredObject != null)
         {

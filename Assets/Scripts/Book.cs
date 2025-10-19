@@ -14,13 +14,12 @@ public class Book : Interactable
 
     public override void Interact()
     {
-        
+
         switch (stage)
         {
             case 0:
                 animation1.Play("book1");
                 stage = 1;
-                putDownButton.gameObject.SetActive(true);
                 break;
             case 1:
                 Debug.Log("Book opens");
@@ -28,11 +27,10 @@ public class Book : Interactable
         }
     }
 
+
     public void PutDown()
     {
-        Debug.Log("Hello");
         animation1.Play("book2");
         stage = 0;
-        putDownButton.gameObject.SetActive(false);
     }
 }

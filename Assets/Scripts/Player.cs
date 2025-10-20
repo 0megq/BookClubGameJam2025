@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float interactDistance = 5;
     public Transform start;
     Camera cam;
     Vector2 mousePos;
@@ -23,9 +22,15 @@ public class Player : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(mousePos);
         // send raycast every frame to show outline
         RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, interactDistance))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit))
         {
             Interactable newObject = hit.transform.GetComponent<Interactable>();
+
+            // is object close enough
+            if (newObject && newObject.interactDistance < hit.distance)
+            {
+                newObject = null;
+            }
 
             if (hoveredObject != newObject) // previously hovered was deselected
             {

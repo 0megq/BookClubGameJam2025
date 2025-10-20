@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     public Color tintColor = new Color(0, 1, 1, 0.75f);
+    public float interactDistance = 20;
 
     public abstract void Interact();
     public virtual void StartHover()

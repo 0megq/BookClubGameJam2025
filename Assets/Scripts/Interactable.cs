@@ -18,15 +18,33 @@ public abstract class Interactable : MonoBehaviour
 
     public void EnableOutline()
     {
-        var meshRenderer = GetComponent<MeshRenderer>();
-        var originalMat = meshRenderer.material;
-        originalMat.SetColor("_TintColor", tintColor);
+        foreach (MeshRenderer ren in GetComponentsInChildren<MeshRenderer>())
+        {
+            ren.material.SetColor("_TintColor", tintColor);
+            if (ren.materials.Length > 1)
+                ren.materials[1].SetFloat("_OutlineWidth", 4);
+        }
+        foreach (SkinnedMeshRenderer ren in GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            ren.material.SetColor("_TintColor", tintColor);
+            if (ren.materials.Length > 1)
+            ren.materials[1].SetFloat("_OutlineWidth", 4);
+        }
     }
 
     public void DisableOutline()
     {
-        var meshRenderer = GetComponent<MeshRenderer>();
-        var originalMat = meshRenderer.material;
-        originalMat.SetColor("_TintColor", Color.clear);
+        foreach (MeshRenderer ren in GetComponentsInChildren<MeshRenderer>())
+        {
+            ren.material.SetColor("_TintColor", Color.clear);
+            if (ren.materials.Length > 1)
+                ren.materials[1].SetFloat("_OutlineWidth", 0);
+        }
+        foreach (SkinnedMeshRenderer ren in GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            ren.material.SetColor("_TintColor", Color.clear);
+            if (ren.materials.Length > 1)
+                ren.materials[1].SetFloat("_OutlineWidth", 0);
+        }
     }
 }
